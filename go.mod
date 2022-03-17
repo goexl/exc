@@ -2,7 +2,7 @@ module github.com/goexl/exc
 
 go 1.17
 
-require github.com/goexl/gox v0.0.2
+require github.com/goexl/gox v0.0.3
 
 require (
 	github.com/mitchellh/mapstructure v1.3.3 // indirect
