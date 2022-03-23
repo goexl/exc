@@ -39,5 +39,5 @@ func (c *codeDefault) Error() (str string) {
 }
 
 func (c *codeDefault) error() string {
-	return fmt.Sprintf(`code = %d, `, c.code)
+	return fmt.Sprintf(`{code = %d}`, c.code)
 }
