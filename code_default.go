@@ -24,10 +24,20 @@ func (c *codeDefault) Code() int {
 	return c.code
 }
 
-func (c codeDefault) MarshalJSON() ([]byte, error) {
+func (c *codeDefault) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`{code: %d}`, c.code)), nil
 }
 
-func (c *codeDefault) Error() string {
+func (c *codeDefault) Error() (str string) {
+	if bytes, err := c.MarshalJSON(); nil != err {
+		str = c.error()
+	} else {
+		str = string(bytes)
+	}
+
+	return
+}
+
+func (c *codeDefault) error() string {
 	return fmt.Sprintf(`code = %d, `, c.code)
 }

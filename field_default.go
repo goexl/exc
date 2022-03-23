@@ -34,7 +34,7 @@ func (f *fieldDefault) Field() gox.Field {
 	return f.field
 }
 
-func (f fieldDefault) MarshalJSON() (bytes []byte, err error) {
+func (f *fieldDefault) MarshalJSON() (bytes []byte, err error) {
 	output := make(map[string]interface{})
 	output[`message`] = f.message
 	output[f.Field().Key()] = f.Field().Value()
@@ -43,7 +43,17 @@ func (f fieldDefault) MarshalJSON() (bytes []byte, err error) {
 	return
 }
 
-func (f *fieldDefault) Error() string {
+func (f *fieldDefault) Error() (str string) {
+	if bytes, err := f.MarshalJSON(); nil != err {
+		str = f.error()
+	} else {
+		str = string(bytes)
+	}
+
+	return
+}
+
+func (f *fieldDefault) error() string {
 	var sb strings.Builder
 	sb.WriteRune('{')
 	sb.WriteString(fmt.Sprintf(`message = %s, `, f.message))
